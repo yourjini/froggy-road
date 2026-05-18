@@ -120,3 +120,77 @@
   color: #ff2d4a;
   font-weight: 400;
 }
+
+/* ============================================================
+   PAUSE button & modal
+   ============================================================ */
+
+/* Pause button (top-right, sits to the left of the help button) */
+#pauseBtn {
+  position: fixed;
+  top: 12px;
+  right: 64px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  font-size: 20px;
+  line-height: 1;
+  font-family: 'Black Han Sans', sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  z-index: 60;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+#pauseBtn:hover, #pauseBtn:focus {
+  background: rgba(0, 0, 0, 0.8);
+  outline: none;
+}
+
+/* Pause modal: full-screen dim overlay with title + resume button */
+#pauseModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  z-index: 110;
+  padding: 20px;
+  box-sizing: border-box;
+}
+#pauseModal.show { display: flex; }
+
+#pauseModal h2 {
+  color: #fff;
+  font-family: 'Black Han Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(36px, 8vw, 56px);
+  line-height: 1;
+  margin: 0;
+  text-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+#pauseModal button.resume {
+  font-family: 'Black Han Sans', sans-serif;
+  font-weight: 400;
+  background: #ff2d4a;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 16px 36px;
+  font-size: clamp(20px, 5vw, 26px);
+  cursor: pointer;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+  -webkit-tap-highlight-color: transparent;
+}
+#pauseModal button.resume:active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+}

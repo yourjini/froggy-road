@@ -109,7 +109,15 @@
             </div>
         </div>
 
+        <!-- Pause button + modal -->
+        <button id="pauseBtn" type="button" aria-label="일시정지">⏸</button>
+        <div id="pauseModal" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+            <h2 id="pauseTitle">⏸ 일시정지</h2>
+            <button class="resume" type="button">▶ 계속하기</button>
+        </div>
+
         <script>
+        // Help modal open/close
         (function(){
             var btn = document.getElementById('helpBtn');
             var modal = document.getElementById('helpModal');
@@ -122,6 +130,78 @@
             modal.addEventListener('click', function(e){ if(e.target === modal) hide(); });
             document.addEventListener('keydown', function(e){
                 if(e.key === 'Escape' && modal.classList.contains('show')) hide();
+            });
+        })();
+
+        // Pause: stops createjs Ticker + GSAP timeline (so idle timer freezes too)
+        // and blocks game keys via capture-phase listener while paused.
+        (function(){
+            var pauseBtn = document.getElementById('pauseBtn');
+            var pauseModal = document.getElementById('pauseModal');
+            if(!pauseBtn || !pauseModal) return;
+            var resumeBtn = pauseModal.querySelector('button.resume');
+            var helpBtn = document.getElementById('helpBtn');
+
+            var state = { active: false, blocker: null, prevPaused: undefined };
+
+            function pauseGame(){
+                if(state.active) return;
+                state.active = true;
+
+                try { if(typeof createjs !== 'undefined' && createjs.Ticker) createjs.Ticker.paused = true; } catch(e){}
+                try { if(typeof TweenMax !== 'undefined') TweenMax.globalTimeScale(0); } catch(e){}
+                if(typeof gameData !== 'undefined' && gameData){
+                    state.prevPaused = gameData.paused;
+                    gameData.paused = true;
+                }
+
+                state.blocker = function(e){
+                    var t = e.target;
+                    if(t && t.closest && t.closest('#pauseModal, #pauseBtn, #helpModal, #helpBtn')) return;
+                    e.stopPropagation();
+                    e.preventDefault();
+                };
+                document.addEventListener('keydown', state.blocker, true);
+
+                if(helpBtn){
+                    helpBtn.style.opacity = '0.4';
+                    helpBtn.style.pointerEvents = 'none';
+                }
+
+                pauseModal.classList.add('show');
+            }
+
+            function resumeGame(){
+                if(!state.active) return;
+                state.active = false;
+
+                if(state.blocker){
+                    document.removeEventListener('keydown', state.blocker, true);
+                    state.blocker = null;
+                }
+
+                try { if(typeof createjs !== 'undefined' && createjs.Ticker) createjs.Ticker.paused = false; } catch(e){}
+                try { if(typeof TweenMax !== 'undefined') TweenMax.globalTimeScale(1); } catch(e){}
+                if(typeof gameData !== 'undefined' && gameData){
+                    gameData.paused = (state.prevPaused === true);
+                    state.prevPaused = undefined;
+                }
+
+                if(helpBtn){
+                    helpBtn.style.opacity = '';
+                    helpBtn.style.pointerEvents = '';
+                }
+
+                pauseModal.classList.remove('show');
+            }
+
+            pauseBtn.addEventListener('click', pauseGame);
+            resumeBtn.addEventListener('click', resumeGame);
+            pauseModal.addEventListener('click', function(e){
+                if(e.target === pauseModal) resumeGame();
+            });
+            document.addEventListener('keydown', function(e){
+                if(state.active && e.key === 'Escape') resumeGame();
             });
         })();
         </script>
