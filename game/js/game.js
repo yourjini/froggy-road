@@ -567,7 +567,12 @@ function keyup(event) {
 var curPage=''
 function goPage(page){
 	curPage=page;
-	
+	// Mark body with .on-game so help/pause/best overlays only show during play
+	// (see css/help.css). Avoids accidental pause on main/result screens.
+	if(typeof document !== 'undefined' && document.body){
+		document.body.classList.toggle('on-game', page === 'game');
+	}
+
 	mainContainer.visible = false;
 	gameContainer.visible = false;
 	resultContainer.visible = false;
@@ -2218,8 +2223,13 @@ var sortFunction = function(obj1, obj2) {
  * 
  */
 function endGame(type){
+	// Re-entrancy guard: idle timer (TweenMax) can complete during the post-death
+	// gameContainer tween and call endGame('catch') a second time. Bail early.
+	if(gameData && gameData.over) return;
 	hideIdleWarning();
 	saveBestScore();
+	// Kill the idle timer tween so it can't fire idleTimeOver after death.
+	try { if(typeof TweenMax !== 'undefined' && typeof worldContainer !== 'undefined') TweenMax.killTweensOf(worldContainer); } catch(e){}
 	gameData.over = true;
 	playSound('soundOver');
 	deactivePower();

@@ -70,8 +70,15 @@ function toggleRotate(con){
 	var wasHidden = false;
 
 	function refreshAfterReturn(){
+		// Don't unpause the Ticker if the user explicitly paused via the modal —
+		// otherwise vendor's per-tick logic (cars, trains, collision) resumes
+		// behind the overlay and can kill the frog while it's "paused".
+		var pauseShown = false;
+		var pm = document.getElementById('pauseModal');
+		if (pm && pm.classList.contains('show')) pauseShown = true;
+
 		try {
-			if (typeof createjs !== 'undefined' && createjs.Ticker) {
+			if (typeof createjs !== 'undefined' && createjs.Ticker && !pauseShown) {
 				createjs.Ticker.paused = false;
 			}
 		} catch (e) { /* createjs may not be ready yet */ }

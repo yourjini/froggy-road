@@ -165,7 +165,9 @@
                 state.blocker = function(e){
                     var t = e.target;
                     if(t && t.closest && t.closest('#pauseModal, #pauseBtn, #helpModal, #helpBtn')) return;
-                    e.stopPropagation();
+                    // stopImmediatePropagation also halts other listeners on the same node
+                    // (vendor's document.onkeydown), so arrow keys can't reach the game.
+                    e.stopImmediatePropagation();
                     e.preventDefault();
                 };
                 document.addEventListener('keydown', state.blocker, true);

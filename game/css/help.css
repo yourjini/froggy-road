@@ -222,3 +222,12 @@
   user-select: none;
   letter-spacing: 0.5px;
 }
+
+/* Page-scoped overlay visibility: our HTML controls only show on the game page.
+   The `on-game` class is toggled by goPage() in js/game.js. */
+body:not(.on-game) #helpBtn,
+body:not(.on-game) #pauseBtn,
+body:not(.on-game) #bestScoreDisplay,
+body:not(.on-game) #idleWarning {
+  display: none !important;
+}
