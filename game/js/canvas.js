@@ -143,13 +143,13 @@ function buildGameCanvas(){
 	itemStatus = new createjs.Bitmap(loader.getResult('itemStatus'));
 	centerReg(itemStatus);
 	statusTxt = new createjs.Text();
-	statusTxt.font = "28px daily_boldregular";
+	statusTxt.font = "28px 'Black Han Sans'";
 	statusTxt.color = '#fff';
 	statusTxt.textAlign = "center";
 	statusTxt.textBaseline='alphabetic';
 	statusTxt.y = 10;
 	statusShadowTxt = new createjs.Text();
-	statusShadowTxt.font = "28px daily_boldregular";
+	statusShadowTxt.font = "28px 'Black Han Sans'";
 	statusShadowTxt.color = '#000';
 	statusShadowTxt.textAlign = "center";
 	statusShadowTxt.textBaseline='alphabetic';
@@ -158,18 +158,18 @@ function buildGameCanvas(){
 	statusContainer.addChild(itemStatus, statusShadowTxt, statusTxt);
 
 	scoreTxt = new createjs.Text();
-	scoreTxt.font = "65px daily_boldregular";
+	scoreTxt.font = "65px 'Black Han Sans'";
 	scoreTxt.color = "#fff";
 	scoreTxt.textAlign = "left";
 	scoreTxt.textBaseline = 'alphabetic';
 	scoreOutlineTxt = new createjs.Text();
-	scoreOutlineTxt.font = "65px daily_boldregular";
+	scoreOutlineTxt.font = "65px 'Black Han Sans'";
 	scoreOutlineTxt.color = '#000';
 	scoreOutlineTxt.textAlign = "left";
 	scoreOutlineTxt.textBaseline='alphabetic';
 	scoreOutlineTxt.outline = 3;
 	scoreShadowTxt = new createjs.Text();
-	scoreShadowTxt.font = "65px daily_boldregular";
+	scoreShadowTxt.font = "65px 'Black Han Sans'";
 	scoreShadowTxt.color = "#000";
 	scoreShadowTxt.textAlign = "left";
 	scoreShadowTxt.textBaseline = 'alphabetic';
@@ -200,14 +200,14 @@ function buildGameCanvas(){
 	centerReg(buttonContinue);
 	
 	resultTitleTxt = new createjs.Text();
-	resultTitleTxt.font = "50px daily_boldregular";
+	resultTitleTxt.font = "50px 'Black Han Sans'";
 	resultTitleTxt.color = '#fff';
 	resultTitleTxt.textAlign = "center";
 	resultTitleTxt.textBaseline='alphabetic';
 	resultTitleTxt.text = textStrings.resultTitle;
 
 	resultTitleOutlineTxt = new createjs.Text();
-	resultTitleOutlineTxt.font = "50px daily_boldregular";
+	resultTitleOutlineTxt.font = "50px 'Black Han Sans'";
 	resultTitleOutlineTxt.color = '#000';
 	resultTitleOutlineTxt.textAlign = "center";
 	resultTitleOutlineTxt.textBaseline='alphabetic';
@@ -215,7 +215,7 @@ function buildGameCanvas(){
 	resultTitleOutlineTxt.text = textStrings.resultTitle;
 	
 	resultDescTxt = new createjs.Text();
-	resultDescTxt.font = "60px daily_boldregular";
+	resultDescTxt.font = "60px 'Black Han Sans'";
 	resultDescTxt.lineHeight = 35;
 	resultDescTxt.color = '#67B21F';
 	resultDescTxt.textAlign = "center";
@@ -223,7 +223,7 @@ function buildGameCanvas(){
 	resultDescTxt.text = '';
 
 	resultDescOutlineTxt = new createjs.Text();
-	resultDescOutlineTxt.font = "60px daily_boldregular";
+	resultDescOutlineTxt.font = "60px 'Black Han Sans'";
 	resultDescOutlineTxt.lineHeight = 35;
 	resultDescOutlineTxt.color = '#000';
 	resultDescOutlineTxt.textAlign = "center";
@@ -231,14 +231,14 @@ function buildGameCanvas(){
 	resultDescOutlineTxt.outline = 8;
 
 	resultBestTxt = new createjs.Text();
-	resultBestTxt.font = "45px daily_boldregular";
+	resultBestTxt.font = "45px 'Black Han Sans'";
 	resultBestTxt.color = '#fff';
 	resultBestTxt.textAlign = "center";
 	resultBestTxt.textBaseline='alphabetic';
 	resultBestTxt.text = '';
 
 	resultBestOutlineTxt = new createjs.Text();
-	resultBestOutlineTxt.font = "45px daily_boldregular";
+	resultBestOutlineTxt.font = "45px 'Black Han Sans'";
 	resultBestOutlineTxt.color = '#000';
 	resultBestOutlineTxt.textAlign = "center";
 	resultBestOutlineTxt.textBaseline='alphabetic';
@@ -253,14 +253,14 @@ function buildGameCanvas(){
 	buttonContinue.y = 165;
 
 	resultShareTxt = new createjs.Text();
-	resultShareTxt.font = "25px daily_boldregular";
+	resultShareTxt.font = "25px 'Black Han Sans'";
 	resultShareTxt.color = '#ea8000';
 	resultShareTxt.textAlign = "center";
 	resultShareTxt.textBaseline='alphabetic';
 	resultShareTxt.text = textStrings.share;
 
 	resultShareOutlineTxt = new createjs.Text();
-	resultShareOutlineTxt.font = "25px daily_boldregular";
+	resultShareOutlineTxt.font = "25px 'Black Han Sans'";
 	resultShareOutlineTxt.color = '#000';
 	resultShareOutlineTxt.textAlign = "center";
 	resultShareOutlineTxt.textBaseline='alphabetic';
@@ -343,14 +343,14 @@ function buildGameCanvas(){
 	centerReg(buttonCancel);
 	
 	popTitleTxt = new createjs.Text();
-	popTitleTxt.font = "50px daily_boldregular";
+	popTitleTxt.font = "50px 'Black Han Sans'";
 	popTitleTxt.color = "#fff";
 	popTitleTxt.textAlign = "center";
 	popTitleTxt.textBaseline='alphabetic';
 	popTitleTxt.text = textStrings.exitTitle;
 
 	popTitleOutlineTxt = new createjs.Text();
-	popTitleOutlineTxt.font = "50px daily_boldregular";
+	popTitleOutlineTxt.font = "50px 'Black Han Sans'";
 	popTitleOutlineTxt.color = '#000';
 	popTitleOutlineTxt.textAlign = "center";
 	popTitleOutlineTxt.textBaseline='alphabetic';
@@ -358,7 +358,7 @@ function buildGameCanvas(){
 	popTitleOutlineTxt.text = textStrings.exitTitle;
 	
 	popDescTxt = new createjs.Text();
-	popDescTxt.font = "32px daily_boldregular";
+	popDescTxt.font = "32px 'Black Han Sans'";
 	popDescTxt.lineHeight = 45;
 	popDescTxt.color = "#fff";
 	popDescTxt.textAlign = "center";
@@ -366,7 +366,7 @@ function buildGameCanvas(){
 	popDescTxt.text = textStrings.exitMessage;
 
 	popDescOutlineTxt = new createjs.Text();
-	popDescOutlineTxt.font = "32px daily_boldregular";
+	popDescOutlineTxt.font = "32px 'Black Han Sans'";
 	popDescOutlineTxt.lineHeight = 45;
 	popDescOutlineTxt.color = '#000';
 	popDescOutlineTxt.textAlign = "center";

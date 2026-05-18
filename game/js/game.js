@@ -286,8 +286,8 @@ const shareSettings = {
 	options:['facebook','twitter','whatsapp','telegram','reddit','linkedin'],
 	shareTitle:'Highscore on Froggy Road is [SCORE]',
 	shareText:'[SCORE] is mine new highscore on Froggy Road game! Try it now!',
-	customScore:true, //share a custom score to Facebook, it use customize share.php (Facebook and PHP only)
-	gtag:true //Google Tag
+	customScore:false, //disabled: share.php removed (Vercel has no PHP). Re-enable when our share endpoint is ready
+	gtag:false //disabled: vendor's GA property removed; re-enable when our GA4 property is configured
 }
 
 /*!
