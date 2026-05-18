@@ -38,6 +38,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/help.css">
     </head>
     <body>
         <!-- PERCENT LOADER START-->
@@ -77,5 +79,51 @@
         <script src="js/main.js"></script>
         <script src="js/loader.js"></script>
         <script src="js/init.js"></script>
+
+        <!-- Idle countdown warning (last 4 seconds before the eagle catches) -->
+        <div id="idleWarning">3</div>
+
+        <!-- In-game help: button (top-right) + guide modal -->
+        <button id="helpBtn" type="button" aria-label="게임 가이드 열기">?</button>
+        <div id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+            <div class="modal-content">
+                <button class="close" type="button" aria-label="닫기">×</button>
+                <h2 id="helpTitle">🐸 게임 가이드</h2>
+                <div class="guide">[조작]
+• PC: 방향키(↑↓←→) — ↑로 앞 점프
+• 모바일: 위/아래/좌/우 스와이프
+
+[목표]
+끝없이 앞으로! 거리만큼 점수 증가
+
+[피해야 할 것]
+🚗 차에 치이면 게임 종료
+💧 강에 빠지면 게임 종료 (통나무 위로!)
+🚂 기차는 빠르니 주의
+
+[⏰ 8초 룰]
+↑로 앞 점프 안 한 채로 8초 지나면 독수리가 채갑니다.
+• 옆/뒤 점프는 타이머 리셋 안 됨
+• 화면 중앙 <strong>빨간 숫자(4초 남음부터)</strong>
+• <strong>화면 흔들림(2초 남음부터)</strong> — 빨리 ↑ 점프!</div>
+            </div>
+        </div>
+
+        <script>
+        (function(){
+            var btn = document.getElementById('helpBtn');
+            var modal = document.getElementById('helpModal');
+            if(!btn || !modal) return;
+            var closeBtn = modal.querySelector('.close');
+            function show(){ modal.classList.add('show'); }
+            function hide(){ modal.classList.remove('show'); }
+            btn.addEventListener('click', show);
+            closeBtn.addEventListener('click', hide);
+            modal.addEventListener('click', function(e){ if(e.target === modal) hide(); });
+            document.addEventListener('keydown', function(e){
+                if(e.key === 'Escape' && modal.classList.contains('show')) hide();
+            });
+        })();
+        </script>
     </body>
 </html>

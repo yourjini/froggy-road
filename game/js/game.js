@@ -1665,15 +1665,36 @@ function animateFrogComplete(dir){
 function startIdleTimer(){
 	if(gameData.powers.type == 1) return;
 	worldContainer.idleTimer = 0;
+	hideIdleWarning();
 	TweenMax.to(worldContainer, gameSettings.idleTimeOver, {idleTimer:gameSettings.idleTimeOver, ease:Linear.easeNone, overwrite:true, onUpdate:function(){
 		const currentTimer  = gameSettings.idleTimeOver - Math.floor(worldContainer.idleTimer);
+		setIdleWarning(currentTimer);
 		if(currentTimer <= 2){
 			shakeCamera(2);
 		}
 	}, onComplete:idleTimeOver});
 }
 
+// Show / hide the red countdown overlay (defined in index.html, styled in css/help.css).
+// Visible during the last 4 seconds of the idle timer.
+function setIdleWarning(remaining){
+	var el = document.getElementById('idleWarning');
+	if(!el) return;
+	if(remaining > 0 && remaining <= 4){
+		el.textContent = String(remaining);
+		el.classList.add('show');
+	}else{
+		el.classList.remove('show');
+	}
+}
+
+function hideIdleWarning(){
+	var el = document.getElementById('idleWarning');
+	if(el) el.classList.remove('show');
+}
+
 function idleTimeOver(){
+	hideIdleWarning();
 	endGame('catch');
 	let startX = -(gameData.world.width/1.5);
 	let endX = (gameData.world.width/1.5);
@@ -2182,6 +2203,7 @@ var sortFunction = function(obj1, obj2) {
  * 
  */
 function endGame(type){
+	hideIdleWarning();
 	gameData.over = true;
 	playSound('soundOver');
 	deactivePower();
