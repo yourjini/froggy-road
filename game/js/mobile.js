@@ -9,16 +9,27 @@ var resizeTimer;
  * 
  */
 function checkMobileEvent(){
-	if(!isDesktop){
-		$( window ).off('orientationchange').on( "orientationchange", function( event ) {
-			$('#canvasHolder').hide();
-			$('#rotateHolder').hide();
-			
-			clearTimeout(resizeTimer);
-			resizeTimer = setTimeout(checkMobileOrientation, 1000);
+	if(isDesktop){
+		// Desktop: refit canvas on browser-window resize (drag corner, browser zoom).
+		// Vendor only listened to mobile orientationchange — desktop got no resize hook
+		// at all, leaving the canvas stale until reload.
+		$(window).off('resize.gameFit').on('resize.gameFit', function(){
+			if(typeof resizeGameFunc === 'function') resizeGameFunc();
 		});
-		checkMobileOrientation();
+		return;
 	}
+	// Mobile / tablet / foldable: listen to BOTH `orientationchange` AND `resize`.
+	// Foldables (Galaxy Fold unfold, Z Flip outer→inner), Surface Duo span, and
+	// iOS Safari URL-bar collapse fire only `resize`, not `orientationchange`.
+	// Debounce dropped from 1000ms to 250ms so the canvas isn't blank for 1s+.
+	var handler = function(){
+		$('#canvasHolder').hide();
+		$('#rotateHolder').hide();
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(checkMobileOrientation, 250);
+	};
+	$(window).off('orientationchange resize').on('orientationchange resize', handler);
+	checkMobileOrientation();
 }
 
 /*!

@@ -43,24 +43,23 @@ const offset = {x:0,y:0,left:0,top:0};
  * GAME RESIZE - This is the function that runs to resize and centralize the game
  * 
  */
+var _resizeGameTimer;
 function resizeGameFunc(){
-	setTimeout(function() {
+	// Coalesce rapid resize events (window drag, foldable unfold, iOS URL bar
+	// collapse all fire many `resize`s in a burst). Without this, vendor
+	// queued a fresh setTimeout on every call -- visible canvas blink.
+	clearTimeout(_resizeGameTimer);
+	_resizeGameTimer = setTimeout(function() {
 		$('.mobileRotate').css('left', checkContentWidth($('.mobileRotate')));
 		$('.mobileRotate').css('top', checkContentHeight($('.mobileRotate')));
 		
 		windowW = window.innerWidth;
 		windowH = window.innerHeight;
-		scalePercent = Math.min(windowW/contentW,windowH/contentH);
-		scalePercent = scalePercent > 1 ? 1 : scalePercent;
-		
-		if(windowW > stageW && windowH > stageH){
-			if(windowW > stageW){
-				scalePercent = windowW/stageW;
-				if((stageH*scalePercent)>windowH){
-					scalePercent = windowH/stageH;
-				}	
-			}
-		}
+		// Fit the canvas to the viewport while preserving aspect. Vendor
+		// previously clamped scale at <=1 plus a narrow uplift branch — result:
+		// on 1366x768 (most common laptop) and many tablets the canvas rendered
+		// at native 1280x720 with huge letterbox. Simple Math.min is correct.
+		scalePercent = Math.min(windowW/stageW, windowH/stageH);
 		
 		const cssWidth = stageW * scalePercent;
 		const cssHeight = stageH * scalePercent;
