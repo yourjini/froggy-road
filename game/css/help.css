@@ -31,11 +31,14 @@
   50%      { transform: translate(-50%, -50%) scale(1.18); }
 }
 
-/* Help button (top-right circle, semi-transparent over canvas) */
+/* Help button (bottom-left, sits to the right of the pause button).
+   Moved off top-right to avoid overlapping vendor's sprite controls. */
 #helpBtn {
   position: fixed;
-  top: 12px;
-  right: 12px;
+  top: auto;
+  bottom: 12px;
+  left: 64px;
+  right: auto;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -125,11 +128,14 @@
    PAUSE button & modal
    ============================================================ */
 
-/* Pause button (top-right, sits to the left of the help button) */
+/* Pause button (bottom-left, leftmost of the two HTML controls).
+   Moved off top-right to avoid overlapping vendor's sprite controls. */
 #pauseBtn {
   position: fixed;
-  top: 12px;
-  right: 64px;
+  top: auto;
+  bottom: 12px;
+  left: 12px;
+  right: auto;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -193,4 +199,26 @@
 #pauseModal button.resume:active {
   transform: translateY(3px);
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* ============================================================
+   BEST SCORE display (top-right, persisted to localStorage).
+   Phase 4 will swap localStorage for a backend call.
+   ============================================================ */
+
+#bestScoreDisplay {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  font-family: 'Black Han Sans', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 6px 14px;
+  border-radius: 8px;
+  z-index: 55;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: 0.5px;
 }

@@ -1693,6 +1693,21 @@ function hideIdleWarning(){
 	if(el) el.classList.remove('show');
 }
 
+// Persist best score to localStorage (Phase 4 will swap for backend call).
+// Called from endGame so every game-end path captures the score.
+function saveBestScore(){
+	try {
+		if(typeof playerData !== 'undefined' && playerData){
+			if(playerData.score > (playerData.bestScore || 0)){
+				playerData.bestScore = playerData.score;
+			}
+			localStorage.setItem('gameportal_froggy_best_score', String(Math.floor(playerData.bestScore || 0)));
+			var el = document.getElementById('bestScoreDisplay');
+			if(el) el.textContent = 'BEST ' + Math.floor(playerData.bestScore || 0);
+		}
+	} catch(e){}
+}
+
 function idleTimeOver(){
 	hideIdleWarning();
 	endGame('catch');
@@ -2204,6 +2219,7 @@ var sortFunction = function(obj1, obj2) {
  */
 function endGame(type){
 	hideIdleWarning();
+	saveBestScore();
 	gameData.over = true;
 	playSound('soundOver');
 	deactivePower();
