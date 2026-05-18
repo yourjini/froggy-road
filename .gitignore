@@ -1,0 +1,35 @@
+# Vendor source assets (CodeCanyon original — license attribution, not redistributable)
+_source/
+
+# Node / build artifacts
+node_modules/
+dist/
+build/
+
+# Python (in case build scripts are added)
+__pycache__/
+*.pyc
+*.pyo
+
+# Env / secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+credentials.json
+secrets/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS metadata
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Logs
+*.log

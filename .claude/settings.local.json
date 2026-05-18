@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:codecanyon.net)",
+      "PowerShell(python \"D:\\\\MyC\\\\game\\\\No1\\\\_build_checklist.py\")",
+      "PowerShell(python -c \"from openpyxl import load_workbook; wb = load_workbook\\(r'D:\\\\MyC\\\\game\\\\No1\\\\게임출시_체크리스트.xlsx'\\); print\\('시트:', wb.sheetnames\\); ws = wb['체크리스트']; print\\(f'체크리스트 행 수: {ws.max_row} \\(헤더 포함\\)'\\); print\\(f'작업 총 {ws.max_row - 1}건'\\)\")",
+      "PowerShell(chcp 65001 *)",
+      "PowerShell(Get-ChildItem *)"
+    ]
+  }
+}
